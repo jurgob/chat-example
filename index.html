@@ -23,7 +23,12 @@
     <script src="/socket.io/socket.io.js"></script>
 
     <script>
-      var socket = io();
+      //ws://localhost:3000/socket.io/?EIO=4&transport=websocket&sid=DNp-FNkVN4Qdl9RKAAAA
+      var socket = io('ws://localhost:3000',{
+        extraHeaders: {
+          "my-custom-header": "abcd"
+        }
+      });
 
       var messages = document.getElementById('messages');
       var form = document.getElementById('form');
@@ -32,7 +37,7 @@
       form.addEventListener('submit', function(e) {
         e.preventDefault();
         if (input.value) {
-          socket.emit('chat message', input.value);
+          socket.emit('chat message', input.value+' megacane');
           input.value = '';
         }
       });
